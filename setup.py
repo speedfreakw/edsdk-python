@@ -2,7 +2,7 @@ import os
 from setuptools import setup, Extension, find_packages
 
 package_name = "edsdk-python"
-version = "0.1"
+version = "0.1.1"
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -69,6 +69,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: System :: Hardware :: Universal Serial Bus (USB)",
         "Typing :: Stubs Only",

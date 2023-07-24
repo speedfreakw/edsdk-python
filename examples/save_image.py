@@ -11,6 +11,8 @@ from edsdk import (
     Access,
     SaveTo,
     EdsObject,
+    PropertyEvent,
+    ObjectFormat,
 )
 
 if os.name == "nt":
@@ -24,8 +26,20 @@ if os.name == "nt":
 
 def save_image(object_handle: EdsObject, save_to: str) -> int:
     dir_item_info = edsdk.GetDirectoryItemInfo(object_handle)
+    if dir_item_info["format"] == ObjectFormat.CR3:
+        file_format = ".CR3"
+    elif dir_item_info["format"] == ObjectFormat.CR2:
+        file_format = ".CR2"
+    elif dir_item_info["format"] == ObjectFormat.Jpeg:
+        file_format = ".jpg"
+    elif dir_item_info["format"] == ObjectFormat.MP4:
+        file_format = ".mp4"
+    elif dir_item_info["format"] == ObjectFormat.HEIF_CODE:
+        file_format = ".HEIF"
+    else:
+        file_format = ".unknown"
     out_stream = edsdk.CreateFileStream(
-        os.path.join(save_to, str(uuid.uuid4()) + ".raw"),
+        os.path.join(save_to, str(uuid.uuid4()) + file_format),
         FileCreateDisposition.CreateAlways,
         Access.ReadWrite)
     edsdk.Download(object_handle, dir_item_info["size"], out_stream)
@@ -60,7 +74,7 @@ if __name__ == "__main__":
     edsdk.OpenSession(cam)
     edsdk.SetObjectEventHandler(cam, ObjectEvent.All, callback_object)
     edsdk.SetPropertyData(cam, PropID.SaveTo, 0, SaveTo.Host)
-    print(edsdk.GetPropertyData(cam, PropID.SaveTo))
+    print(edsdk.GetPropertyData(cam, PropID.SaveTo, 0))
 
     # Sets HD Capacity to an arbitrary big value
     edsdk.SetCapacity(

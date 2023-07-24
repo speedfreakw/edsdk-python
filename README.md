@@ -1,4 +1,5 @@
 # edsdk-python
+*This is a fork of the [edsdk-python](https://github.com/Jiloc/edsdk-python) Python wrapper by [Jiloc](https://github.com/Jiloc). This fork fixes some issues of the original wrapper with newer Versions of the EDSDK (used Version: 13.17.0).*
 
 Python wrapper for Canon EOS Digital Software Development Kit, aka EDSDK.
 
@@ -43,28 +44,6 @@ dependencies/EDSDK_64/Library/EDSDK.lib
 
 Any additional files aren't needed, but won't hurt either in case you copied the entire folders.
 
-
-## Modify EDSDKTypes.h
-
-This file contains an enum definition, called `Unknown`, which collides with a DEFINE in the `Windows.h` header.
-
-Therefore needs to be renamed.
-
-```c
-typedef enum
-{
-    Unknown   = 0x00000000,
-    Jpeg      = 0x3801,
-    CR2       = 0xB103,
-    MP4       = 0xB982,
-    CR3       = 0xB108,
-    HEIF_CODE = 0xB10B,
-} EdsObjectFormat;
-```
-
-You can comment out `Unknown` or rename it to `UNKNOWN` (or whatever you want) or it won't compile on Windows.
-
-
 ## Build the library
 
 Run:
@@ -72,7 +51,3 @@ Run:
 ```bash
 pip install .
 ```
-
-## Throubleshooting
-
-C2365: 'Unknown': redefinition; previous definition was 'enumerator' : go to the section [Modify EDSDKTypes.h](#modify-edsdktypesh) and follow the instructions.
