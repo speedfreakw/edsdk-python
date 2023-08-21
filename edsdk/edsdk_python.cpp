@@ -1830,7 +1830,7 @@ static PyObject* PyEds_SetCameraAddedHandler(PyObject *Py_UNUSED(self), PyObject
         return nullptr;
     }
 
-    if (!PyCallable_CheckNumberOfParameters(pyCallable, 0) ||
+    if (!PyCallable_CheckNumberOfParameters(pyCallable, 0) &&
             !PyCallable_CheckNumberOfParameters(pyCallable, 1)) {
         PyErr_Format(PyExc_ValueError,
                      "expected a callable object with 0 or 1 parameters"

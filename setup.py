@@ -2,7 +2,7 @@ import os
 from setuptools import setup, Extension, find_packages
 
 package_name = "edsdk-python"
-version = "0.1.1"
+version = "0.1.2"
 
 here = os.path.abspath(os.path.dirname(__file__))
 
